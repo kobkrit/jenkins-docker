@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  jenkins:
+    build: 
+      context: ./jenkins-with-docker-compose
+    restart: unless-stopped
+    privileged: true
+    user: root
+    ports:
+     - 8080:8080
+    container_name: jenkins
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 1G
+    volumes:
+      - ~/jenkins-docker:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
